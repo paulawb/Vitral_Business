@@ -23,7 +23,7 @@ export type Product = {
   vecesVisto?: number | null;
   vecesAgendado?: number | null;
 };
-
+ 
 export type ProductInput = Partial<Product> & {
   nombre: string;
   precio: number;
