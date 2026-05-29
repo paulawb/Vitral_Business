@@ -1,5 +1,5 @@
 "use client";
-
+ 
 import { catalogClient } from "@/services/http-client";
 import { Product, ProductInput } from "@/types/catalog";
 
