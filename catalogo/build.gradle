@@ -1,14 +1,18 @@
 plugins {
- 	id 'java'
- 	id 'org.springframework.boot'
- 	id 'io.spring.dependency-management'
- 	id 'jacoco'
- }
+  	id 'java'
+  	id 'org.springframework.boot'
+  	id 'io.spring.dependency-management'
+  	id 'jacoco'
+  }
+
+repositories {
+	mavenCentral()
+}
 
 configurations {
-	mockitoAgent {
-		transitive = false
-	}
+ 	mockitoAgent {
+ 		transitive = false
+ 	}
 }
 
 dependencies {
@@ -30,8 +34,9 @@ dependencies {
 }
 
 tasks.named('test') {
-	jvmArgs "-javaagent:${configurations.mockitoAgent.singleFile}"
-	finalizedBy tasks.named('jacocoTestReport')
+  jvmArgs "-javaagent:${configurations.mockitoAgent.singleFile}"
+  finalizedBy tasks.named('jacocoTestReport')
+  useJUnitPlatform()
 }
 
 tasks.named('jacocoTestReport') {
