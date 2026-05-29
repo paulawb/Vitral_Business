@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-
+ 
 export default function Loading() {
   return (
     <div className="container-app py-8">
