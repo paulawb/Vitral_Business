@@ -13,7 +13,7 @@ export type Booking = {
   status: string;
   notes?: string;
 };
-
+ 
 export type AvailabilitySlot = {
   startTime: string;
   endTime: string;
