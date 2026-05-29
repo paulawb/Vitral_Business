@@ -39,7 +39,7 @@ public class AwsConfig {
                         )
                 )                .build();
     }
-
+ 
     @Bean
     public SesClient sesClient() {
         return SesClient.builder()
