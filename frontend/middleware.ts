@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const protectedPaths = ["/dashboard", "/analytics", "/admin", "/configuracion", "/planes", "/onboarding", "/citas", "/catalogo"];
 const authPaths = ["/login", "/registro"];
-
+ 
 export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("vitral_access_token")?.value;
   const tenantId = request.cookies.get("vitral_tenant_id")?.value;
