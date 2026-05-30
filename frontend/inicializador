@@ -1,0 +1,14 @@
+# 1. Crea el proyecto frontend usando Vite (interactivo para elegir React/Vue/etc.)
+npm create vite@latest mi-proyecto-vercel -- --template react
+
+# 2. Entra a la carpeta del proyecto
+cd mi-proyecto-vercel
+
+# 3. Instala todas las dependencias necesarias
+npm install
+
+# 4. Instala el CLI de Vercel de forma local en el proyecto
+npm install --save-dev vercel
+
+# 5. Ejecuta Vercel para enlazarlo, configurarlo y desplegarlo en producción
+npx vercel --prod
