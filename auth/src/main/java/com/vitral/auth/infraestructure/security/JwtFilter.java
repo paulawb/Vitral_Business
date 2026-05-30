@@ -26,16 +26,16 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        if (path.startsWith("/api/vitral/usuarios/login")
+        if (path.equals("/")
+                || path.startsWith("/api/vitral/usuarios/login")
                 || path.startsWith("/api/vitral/usuarios/guardar")
-                || path.startsWith("/api/vitral/usuarios/buscar")
-                || path.startsWith("/api/vitral/usuarios/eliminar")
                 || path.startsWith("/api/v1/auth/login")
                 || path.startsWith("/api/v1/auth/register")
                 || path.startsWith("/api/v1/auth/refresh")
                 || path.startsWith("/actuator")
                 || path.startsWith("/v3/api-docs")
                 || path.startsWith("/swagger-ui")) {
+
             filterChain.doFilter(request, response);
             return;
         }
