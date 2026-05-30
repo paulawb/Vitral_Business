@@ -1,14 +1,12 @@
-# 1. Crea el proyecto frontend usando Vite (interactivo para elegir React/Vue/etc.)
-npm create vite@latest mi-proyecto-vercel -- --template react
+# 1. Instalar de forma limpia react-scripts y guardarlo en el package.json
+npm install react-scripts --save
 
-# 2. Entra a la carpeta del proyecto
-cd mi-proyecto-vercel
+# 2. Asegurar que node_modules no se suba a Git (crea o añade al .gitignore)
+echo "node_modules/" >> .gitignore
 
-# 3. Instala todas las dependencias necesarias
-npm install
+# 3. Guardar los cambios en Git
+git add package.json package-lock.json .gitignore
+git commit -m "Fix: agregar react-scripts obligatoria para el build de Vercel"
 
-# 4. Instala el CLI de Vercel de forma local en el proyecto
-npm install --save-dev vercel
-
-# 5. Ejecuta Vercel para enlazarlo, configurarlo y desplegarlo en producción
-npx vercel --prod
+# 4. Enviar los cambios inmediatamente a la rama de producción
+git push origin principal
