@@ -1,5 +1,11 @@
 FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
+
+COPY gradlew settings.gradle build.gradle ./
+COPY gradle ./gradle
+COPY auth/build.gradle ./auth/
+RUN chmod +x gradlew && ./gradlew :auth:dependencies --no-daemon || true
+
 COPY . .
 RUN chmod +x gradlew && ./gradlew :auth:bootJar --no-daemon
 
