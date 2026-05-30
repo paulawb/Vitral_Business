@@ -53,11 +53,11 @@ export function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           />
         ))}
       </div>
-      <Input
+      <input
         type="color"
         value={customColor}
         onChange={handleCustomChange}
-        className="h-10 w-20"
+        className="h-10 w-20 cursor-pointer rounded-md border border-slate-200 bg-white p-1"
       />
     </div>
   );
