@@ -1,0 +1,11 @@
+.git/
+.gradle/
+**/build/
+**/node_modules/
+.idea/
+*.md
+.gitattributes
+.env
+.env.example
+docker-compose.yml
+.gitignore
