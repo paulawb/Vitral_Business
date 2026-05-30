@@ -1,4 +1,4 @@
-package com.vitral.auth.infraestructure.entry_points;
+﻿package com.vitral.auth.infraestructure.entry_points;
 
 import com.vitral.auth.domain.model.EmailMessage;
 import com.vitral.auth.domain.model.Usuario;
@@ -27,8 +27,14 @@ public class UsuarioController {
 
     @PostMapping({"/api/vitral/usuarios/guardar", "/api/v1/auth/register"})
     public ResponseEntity<Usuario> guardarUsuario(@Valid @RequestBody UsuarioData usuarioData) {
-        Usuario usuarioValidadoGuardado = usuarioUseCase.guardarUsuario(usuarioMapper.toUsuario(usuarioData));
-        return new ResponseEntity<>(usuarioValidadoGuardado, HttpStatus.OK);
+        try {
+            Usuario usuarioValidadoGuardado = usuarioUseCase.guardarUsuario(usuarioMapper.toUsuario(usuarioData));
+            return new ResponseEntity<>(usuarioValidadoGuardado, HttpStatus.OK);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            // Normalmente ocurre cuando hay constraints UNIQUE en BD (cedula/correo).
+            // En vez de devolver un error genérico, lo convertimos en "ya existe".
+            throw new IllegalStateException("El usuario (cedula/correo) ya existe");
+        }
     }
 
     @PutMapping({"/api/vitral/usuarios/actualizar", "/api/v1/auth/users"})
@@ -70,9 +76,22 @@ public class UsuarioController {
     @PostMapping({"/api/vitral/usuarios/login", "/api/v1/auth/login"})
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest data) {
         try {
-            return new ResponseEntity<>(usuarioUseCase.login(data), HttpStatus.OK);
+            AuthResponse authResponse = usuarioUseCase.login(data);
+
+            String tenantId = authResponse.getTenantId();
+            String fecha = java.time.LocalDateTime.now().toString();
+
+            EmailMessage email = new EmailMessage(
+                    data.getCorreo(),
+                    "ConfirmaciÃƒÂ³n de inicio de sesiÃƒÂ³n",
+                    "Hola, tu inicio de sesiÃƒÂ³n fue exitoso.\nTenant: " + tenantId + "\nFecha: " + fecha
+            );
+
+            emailGateway.sendEmail(email);
+
+            return new ResponseEntity<>(authResponse, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

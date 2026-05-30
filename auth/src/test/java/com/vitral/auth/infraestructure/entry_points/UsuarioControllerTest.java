@@ -1,6 +1,7 @@
 package com.vitral.auth.infraestructure.entry_points;
 
 import com.vitral.auth.domain.model.Usuario;
+import com.vitral.auth.domain.model.gateway.EmailGateway;
 import com.vitral.auth.domain.usecase.UsuarioUseCase;
 import com.vitral.auth.infraestructure.driver_adapters.jpa_repository.UsuarioData;
 import com.vitral.auth.infraestructure.entry_points.dto.AuthRequest;
@@ -29,6 +30,9 @@ class UsuarioControllerTest {
 
     @Mock
     private UsuarioMapper usuarioMapper;
+
+    @Mock
+    private EmailGateway emailGateway;
 
     @InjectMocks
     private UsuarioController controller;
@@ -171,6 +175,8 @@ class UsuarioControllerTest {
                 .build();
 
         when(usuarioUseCase.login(request)).thenReturn(authResponse);
+        // controller también envía email en el login exitoso
+        doNothing().when(emailGateway).sendEmail(any());
 
         ResponseEntity<AuthResponse> response = controller.login(request);
 

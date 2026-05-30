@@ -30,6 +30,11 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.CONFLICT, exception.getMessage(), request);
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ApiError> handleNullPointer(NullPointerException exception, HttpServletRequest request) {
+        return build(HttpStatus.BAD_REQUEST, exception.getMessage(), request);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGeneric(Exception exception, HttpServletRequest request) {
         return build(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), request);

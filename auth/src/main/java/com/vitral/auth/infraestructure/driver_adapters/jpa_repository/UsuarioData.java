@@ -65,6 +65,10 @@ public class UsuarioData {
     private Boolean activo;
     private LocalDateTime fechaActualizacion;
     private String refreshToken;
+    
+    // Deprecated: kept for database compatibility, will be removed by migration
+    @Column(name = "tipo_negocio")
+    private String tipoNegocio;
 
      public UsuarioData(String cedula, String nombres, String correo, String password, String telefono) {
          this.cedula = cedula;
