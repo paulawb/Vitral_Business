@@ -48,18 +48,14 @@ public class UsuarioData {
 
     @NotBlank(message = "Password es obligatorio")
     private String password;
-    
-    private Integer edad;
 
     @Size(max = 20, message = "Telefono debe tener maximo 20 caracteres")
     @Column(length = 20)
     private String telefono;
 
     private String fotoPerfil;
-    private String rol;
     private String estado;
     private Boolean emailVerificado;
-    private Boolean telefonoVerificado;
     private LocalDateTime ultimoLogin;
     private String tenantId;
     private String providerAuth;
@@ -68,38 +64,34 @@ public class UsuarioData {
     private String tokenRecuperacion;
     private Boolean activo;
     private LocalDateTime fechaActualizacion;
-    private String tipoNegocio;
     private String refreshToken;
 
-    public UsuarioData(String cedula, String nombres, String correo, String password, Integer edad, String telefono, String rol, String tipoNegocio) {
-        this.cedula = cedula;
-        this.nombres = nombres;
-        this.correo = correo;
-        this.password = password;
-        this.edad = edad;
-        this.telefono = telefono;
-        this.rol = rol;
-        this.tipoNegocio = tipoNegocio;
-    }
+     public UsuarioData(String cedula, String nombres, String correo, String password, String telefono) {
+         this.cedula = cedula;
+         this.nombres = nombres;
+         this.correo = correo;
+         this.password = password;
+         this.telefono = telefono;
+     }
 
-    @PrePersist
-    void onCreate() {
-        if (uuid == null || uuid.isBlank()) {
-            uuid = UUID.randomUUID().toString();
-        }
-        if (fechaActualizacion == null) {
-            fechaActualizacion = LocalDateTime.now();
-        }
-        if (activo == null) {
-            activo = true;
-        }
-        if (estado == null || estado.isBlank()) {
-            estado = "PENDING";
-        }
-    }
+     @PrePersist
+     void onCreate() {
+         if (uuid == null || uuid.isBlank()) {
+             uuid = UUID.randomUUID().toString();
+         }
+         if (fechaActualizacion == null) {
+             fechaActualizacion = LocalDateTime.now();
+         }
+         if (activo == null) {
+             activo = true;
+         }
+         if (estado == null || estado.isBlank()) {
+             estado = "PENDING";
+         }
+     }
 
-    @PreUpdate
-    void onUpdate() {
-        fechaActualizacion = LocalDateTime.now();
-    }
-}
+     @PreUpdate
+     void onUpdate() {
+         fechaActualizacion = LocalDateTime.now();
+     }
+ }

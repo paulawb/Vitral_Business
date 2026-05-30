@@ -51,7 +51,6 @@ class UsuarioUseCaseTest {
                 .correo(CORREO_VALIDO)
                 .password(PASSWORD_VALIDO)
                 .telefono("3001234567")
-                .rol("TENANT_ADMIN")
                 .tenantId("UNASSIGNED")
                 .build();
     }
@@ -263,7 +262,7 @@ class UsuarioUseCaseTest {
 
     @Test
     void refreshToken_debeRetornarAuthResponseConTokenNuevo() {
-        String validRefreshToken = JwtUtil.generateRefreshToken(CORREO_VALIDO, "UNASSIGNED", "TENANT_ADMIN");
+        String validRefreshToken = JwtUtil.generateRefreshToken(CORREO_VALIDO, "UNASSIGNED");
         usuario.setRefreshToken(validRefreshToken);
         when(usuarioGateway.buscarUsuarioPorRefreshToken(validRefreshToken)).thenReturn(usuario);
         when(usuarioGateway.actualizarUsuario(any(Usuario.class))).thenAnswer(invocation -> invocation.getArgument(0));

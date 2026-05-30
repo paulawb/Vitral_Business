@@ -18,11 +18,11 @@ public final class JwtUtil {
     private JwtUtil() {
     }
 
-    public static String generateToken(String correo, String tenantId, String rol) {
+    public static String generateToken(String correo, String tenantId) {
         return Jwts.builder()
                 .setSubject(correo)
                 .claim("tenantId", tenantId == null ? "UNASSIGNED" : tenantId)
-                .claim("rol", rol == null ? "USER" : rol)
+                .claim("rol", "cliente") // Default role for vitrina-only use case
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(KEY, SignatureAlgorithm.HS256)
@@ -30,14 +30,14 @@ public final class JwtUtil {
     }
 
     public static String generateToken(String correo) {
-        return generateToken(correo, "default", "USER");
+        return generateToken(correo, "default");
     }
 
-    public static String generateRefreshToken(String correo, String tenantId, String rol) {
+    public static String generateRefreshToken(String correo, String tenantId) {
         return Jwts.builder()
                 .setSubject(correo)
                 .claim("tenantId", tenantId == null ? "UNASSIGNED" : tenantId)
-                .claim("rol", rol == null ? "USER" : rol)
+                .claim("rol", "cliente") // Default role for vitrina-only use case
                 .claim("type", "refresh")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME))

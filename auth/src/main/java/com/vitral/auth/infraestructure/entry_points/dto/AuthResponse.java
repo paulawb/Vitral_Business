@@ -15,7 +15,6 @@ public class AuthResponse {
     private String accessToken;
     private String refreshToken;
     private long expiresInSeconds;
-    private String rol;
     private String tenantId;
     private Usuario usuario;
 }

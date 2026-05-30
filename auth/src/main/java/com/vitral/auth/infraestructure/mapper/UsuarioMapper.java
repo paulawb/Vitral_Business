@@ -19,13 +19,10 @@ public class UsuarioMapper {
                 .apellidos(usuarioData.getApellidos())
                 .correo(usuarioData.getCorreo())
                 .password(usuarioData.getPassword())
-                .edad(usuarioData.getEdad())
                 .telefono(usuarioData.getTelefono())
                 .fotoPerfil(usuarioData.getFotoPerfil())
-                .rol(usuarioData.getRol())
                 .estado(usuarioData.getEstado())
                 .emailVerificado(usuarioData.getEmailVerificado())
-                .telefonoVerificado(usuarioData.getTelefonoVerificado())
                 .ultimoLogin(usuarioData.getUltimoLogin())
                 .tenantId(usuarioData.getTenantId())
                 .providerAuth(usuarioData.getProviderAuth())
@@ -34,7 +31,6 @@ public class UsuarioMapper {
                 .tokenRecuperacion(usuarioData.getTokenRecuperacion())
                 .activo(usuarioData.getActivo())
                 .fechaActualizacion(usuarioData.getFechaActualizacion())
-                .tipoNegocio(usuarioData.getTipoNegocio())
                 .refreshToken(usuarioData.getRefreshToken())
                 .build();
     }
@@ -51,13 +47,10 @@ public class UsuarioMapper {
                 .apellidos(usuario.getApellidos())
                 .correo(usuario.getCorreo())
                 .password(usuario.getPassword())
-                .edad(usuario.getEdad())
                 .telefono(usuario.getTelefono())
                 .fotoPerfil(usuario.getFotoPerfil())
-                .rol(usuario.getRol())
                 .estado(usuario.getEstado())
                 .emailVerificado(usuario.getEmailVerificado())
-                .telefonoVerificado(usuario.getTelefonoVerificado())
                 .ultimoLogin(usuario.getUltimoLogin())
                 .tenantId(usuario.getTenantId())
                 .providerAuth(usuario.getProviderAuth())
@@ -66,15 +59,7 @@ public class UsuarioMapper {
                 .tokenRecuperacion(usuario.getTokenRecuperacion())
                 .activo(usuario.getActivo())
                 .fechaActualizacion(usuario.getFechaActualizacion())
-                .tipoNegocio(resolveTipoNegocio(usuario))
                 .refreshToken(usuario.getRefreshToken())
                 .build();
-    }
-
-    private String resolveTipoNegocio(Usuario usuario) {
-        if ("barberia".equalsIgnoreCase(usuario.getTipoNegocio())) {
-            return usuario.getRol();
-        }
-        return usuario.getTipoNegocio();
     }
 }

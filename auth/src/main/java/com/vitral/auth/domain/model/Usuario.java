@@ -21,13 +21,10 @@ public class Usuario {
     private String apellidos;
     private String correo;
     private String password;
-    private Integer edad;
     private String telefono;
     private String fotoPerfil;
-    private String rol;
     private String estado;
     private Boolean emailVerificado;
-    private Boolean telefonoVerificado;
     private LocalDateTime ultimoLogin;
     private String tenantId;
     private String providerAuth;
@@ -36,17 +33,13 @@ public class Usuario {
     private String tokenRecuperacion;
     private Boolean activo;
     private LocalDateTime fechaActualizacion;
-    private String tipoNegocio;
     private String refreshToken;
 
-    public Usuario(String cedula, String nombres, String correo, String password, Integer edad, String telefono, String rol, String tipoNegocio) {
+    public Usuario(String cedula, String nombres, String correo, String password, String telefono) {
         this.cedula = cedula;
         this.nombres = nombres;
         this.correo = correo;
         this.password = password;
-        this.edad = edad;
         this.telefono = telefono;
-        this.rol = rol;
-        this.tipoNegocio = tipoNegocio;
     }
 }

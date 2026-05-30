@@ -27,12 +27,10 @@ public class UsuarioUseCase {
         usuario.setNombres(InputSanitizer.clean(usuario.getNombres()));
         usuario.setApellidos(InputSanitizer.clean(usuario.getApellidos()));
         usuario.setTelefono(InputSanitizer.clean(usuario.getTelefono()));
-        usuario.setRol(valorPorDefecto(usuario.getRol(), "TENANT_ADMIN"));
         usuario.setEstado(valorPorDefecto(usuario.getEstado(), "PENDING"));
         usuario.setProviderAuth(valorPorDefecto(usuario.getProviderAuth(), "LOCAL"));
         usuario.setTenantId(normalizarTenantId(usuario.getTenantId()));
         usuario.setEmailVerificado(valorBooleano(usuario.getEmailVerificado(), false));
-        usuario.setTelefonoVerificado(valorBooleano(usuario.getTelefonoVerificado(), false));
         usuario.setActivo(valorBooleano(usuario.getActivo(), true));
         usuario.setIntentosFallidos(valorEntero(usuario.getIntentosFallidos(), 0));
         usuario.setFechaActualizacion(LocalDateTime.now());
@@ -103,14 +101,13 @@ public class UsuarioUseCase {
         usuario.setBloqueadoHasta(null);
         usuario.setUltimoLogin(LocalDateTime.now());
         usuario.setFechaActualizacion(LocalDateTime.now());
-        usuario.setRefreshToken(JwtUtil.generateRefreshToken(usuario.getCorreo(), usuario.getTenantId(), usuario.getRol()));
+        usuario.setRefreshToken(JwtUtil.generateRefreshToken(usuario.getCorreo(), usuario.getTenantId()));
         Usuario actualizado = usuarioGateway.actualizarUsuario(usuario);
 
         return AuthResponse.builder()
-                .accessToken(JwtUtil.generateToken(actualizado.getCorreo(), actualizado.getTenantId(), actualizado.getRol()))
+                .accessToken(JwtUtil.generateToken(actualizado.getCorreo(), actualizado.getTenantId()))
                 .refreshToken(actualizado.getRefreshToken())
                 .expiresInSeconds(JwtUtil.getExpirationTimeSeconds())
-                .rol(actualizado.getRol())
                 .tenantId(actualizado.getTenantId())
                 .usuario(actualizado)
                 .build();
@@ -126,16 +123,15 @@ public class UsuarioUseCase {
             throw new IllegalArgumentException("Refresh token invalido");
         }
 
-        String nuevoRefreshToken = JwtUtil.generateRefreshToken(usuario.getCorreo(), usuario.getTenantId(), usuario.getRol());
+        String nuevoRefreshToken = JwtUtil.generateRefreshToken(usuario.getCorreo(), usuario.getTenantId());
         usuario.setRefreshToken(nuevoRefreshToken);
         usuario.setFechaActualizacion(LocalDateTime.now());
         Usuario actualizado = usuarioGateway.actualizarUsuario(usuario);
 
         return AuthResponse.builder()
-                .accessToken(JwtUtil.generateToken(actualizado.getCorreo(), actualizado.getTenantId(), actualizado.getRol()))
+                .accessToken(JwtUtil.generateToken(actualizado.getCorreo(), actualizado.getTenantId()))
                 .refreshToken(actualizado.getRefreshToken())
                 .expiresInSeconds(JwtUtil.getExpirationTimeSeconds())
-                .rol(actualizado.getRol())
                 .tenantId(actualizado.getTenantId())
                 .usuario(actualizado)
                 .build();

@@ -54,10 +54,14 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String rol = JwtUtil.getClaim(token, "rol");
+        // If rol claim is not present in token, default to "cliente" for our vitrina-only use case
+        if (rol == null) {
+            rol = "cliente";
+        }
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                 correo,
                 null,
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + (rol == null ? "USER" : rol)))
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + rol))
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);

@@ -119,10 +119,10 @@ class UsuarioDataGatewayImplTest {
     }
 
     private Usuario crearUsuario() {
-        return new Usuario("123", "Ana", "ana@mail.com", "enc-1234", 25, "3001234567", "USER", "barberia");
+        return new Usuario("123", "Ana", "ana@mail.com", "enc-1234", "3001234567");
     }
 
     private UsuarioData crearUsuarioData() {
-        return new UsuarioData("123", "Ana", "ana@mail.com", "enc-1234", 25, "3001234567", "USER", "barberia");
+        return new UsuarioData("123", "Ana", "ana@mail.com", "enc-1234", "3001234567");
     }
 }
