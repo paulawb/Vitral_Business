@@ -112,7 +112,7 @@ export function BusinessOnboardingForm() {
       
       <div className="space-y-3">
         <label className="text-sm font-medium text-ink">Logo del negocio</label>
-        <Input type="file" accept="image/*" onChange={handleLogoUpload} />
+        <input type="file" accept="image/*" onChange={handleLogoUpload} className="rounded-md border border-slate-200 bg-white px-3 py-3 text-sm text-ink file:mr-3 file:rounded file:border-0 file:bg-ink file:px-3 file:py-1 file:text-sm file:text-white" />
         {watch("logoUrl") && (
           <img src={watch("logoUrl")} alt="Preview" className="h-20 w-20 rounded object-cover" />
         )}
