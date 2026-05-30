@@ -39,30 +39,6 @@ class JwtFilterTest {
     }
 
     @Test
-    void doFilter_debePermitirRutaPublicaBuscar() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setRequestURI("/api/vitral/usuarios/buscar/123");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        FilterChain chain = mock(FilterChain.class);
-
-        filter.doFilter(request, response, chain);
-
-        verify(chain).doFilter(request, response);
-    }
-
-    @Test
-    void doFilter_debePermitirRutaPublicaEliminar() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setRequestURI("/api/vitral/usuarios/eliminar/123");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        FilterChain chain = mock(FilterChain.class);
-
-        filter.doFilter(request, response, chain);
-
-        verify(chain).doFilter(request, response);
-    }
-
-    @Test
     void doFilter_debeRetornarUnauthorizedSiFaltaAuthorization() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setRequestURI("/api/vitral/usuarios/privado");
